@@ -35,3 +35,6 @@ app:
     caches:
       userById:
         expiry: 10m
+logging:
+  level:
+    org.springframework.security: DEBUG

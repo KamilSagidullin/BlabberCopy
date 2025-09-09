@@ -1,4 +1,4 @@
-package com.example.blabbercopy.web;
+package com.example.blabbercopy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

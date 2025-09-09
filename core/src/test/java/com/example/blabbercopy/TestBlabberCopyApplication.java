@@ -1,6 +1,5 @@
 package com.example.blabbercopy;
 
-import com.example.blabbercopy.web.BlabberCopyApplication;
 import org.springframework.boot.SpringApplication;
 
 public class TestBlabberCopyApplication {
