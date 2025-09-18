@@ -1,4 +1,4 @@
-package com.example.blabbercopy.dto;
+package com.example.blabbercopy.web.dto;
 
 import com.example.blabbercopy.entity.RoleType;
 import lombok.AllArgsConstructor;

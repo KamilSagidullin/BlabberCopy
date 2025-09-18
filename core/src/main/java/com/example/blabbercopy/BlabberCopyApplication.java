@@ -8,7 +8,6 @@ public class BlabberCopyApplication {
 
     public static void main(String[] args) {
         System.out.println("Default TimeZone: " + java.util.TimeZone.getDefault().getID());
-
         SpringApplication.run(BlabberCopyApplication.class, args);
     }
 
