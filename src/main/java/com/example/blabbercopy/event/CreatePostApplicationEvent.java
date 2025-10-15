@@ -1,4 +1,4 @@
-package com.example.event;
+package com.example.blabbercopy.event;
 
 import lombok.*;
 import org.springframework.context.ApplicationEvent;
@@ -6,10 +6,10 @@ import org.springframework.context.ApplicationEvent;
 @ToString
 public class CreatePostApplicationEvent extends ApplicationEvent {
     private long postId;
-    private int authorId;
+    private long authorId;
     private String authorUsername;
 
-    public CreatePostApplicationEvent(Object source, long postId, int authorId, String authorUsername) {
+    public CreatePostApplicationEvent(Object source, long postId, long authorId, String authorUsername) {
         super(source);
         this.postId = postId;
         this.authorId = authorId;

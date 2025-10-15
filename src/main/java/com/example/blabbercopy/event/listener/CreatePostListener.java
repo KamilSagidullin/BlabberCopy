@@ -1,7 +1,7 @@
-package com.example.event.listener;
+package com.example.blabbercopy.event.listener;
 
-import com.example.event.CreatePostApplicationEvent;
-import com.example.event.CreatePostKafkaEvent;
+import com.example.blabbercopy.event.CreatePostApplicationEvent;
+import com.example.blabbercopy.event.CreatePostKafkaEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ public class CreatePostListener {
     @Value("${app.kafka.topic}")
     private String topic;
 
-    private KafkaTemplate<String,CreatePostKafkaEvent> postKafkaTemplate;
+    private final KafkaTemplate<String,CreatePostKafkaEvent> postKafkaTemplate;
 
     @EventListener
     public void onEvent(CreatePostApplicationEvent applicationEvent){

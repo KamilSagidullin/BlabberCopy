@@ -1,16 +1,15 @@
-package com.example.event;
+package com.example.blabbercopy.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.ApplicationEvent;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePostKafkaEvent  {
     private Long postId;
-    private int authorId;
+    private Long authorId;
     private String username;
 }
 

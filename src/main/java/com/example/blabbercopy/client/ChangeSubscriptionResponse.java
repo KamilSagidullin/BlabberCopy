@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.blabbercopy.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangeSubscriptionResponse {
+
     private Long id;
-    private Set<Long> subscribersId = new HashSet<>();
+
+    private Set<Long> subscriberIds = new HashSet<>();
+
 }

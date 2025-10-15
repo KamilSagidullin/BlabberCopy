@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:9093
   datasource:
     url: jdbc:postgresql://localhost:5432/blabber_db
     username: admin

@@ -1,11 +1,12 @@
-package com.example.event.listener;
+package com.example.blabbercopy.event.listener;
 
-import com.example.client.SubscriptionClient;
-import com.example.entity.SubscriptionType;
-import com.example.event.SubscriptionChangeApplicationEvent;
-import com.example.exception.BlabberException;
+import com.example.blabbercopy.client.SubscriptionClient;
+import com.example.blabbercopy.entity.SubscriptionType;
+import com.example.blabbercopy.event.SubscriptionChangeApplicationEvent;
+import com.example.blabbercopy.exception.BlabberException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -17,7 +18,7 @@ public class SubscriptionChangeListener {
 
     private final SubscriptionClient subscriptionClient;
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @EventListener
     public void onEvent(SubscriptionChangeApplicationEvent event) {
         log.info("Received subscription change event {}", event);
         switch (event.getSubscriptionType()){

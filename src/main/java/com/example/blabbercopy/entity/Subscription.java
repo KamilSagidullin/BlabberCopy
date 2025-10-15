@@ -1,23 +1,28 @@
-package com.example.entity;
+package com.example.blabbercopy.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Subscription {
+public class Subscription implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "follower_id",nullable = false)
+    @JoinColumn(name = "follower_id", nullable = false)
     private User follower;
+
     @ManyToOne
-    @JoinColumn(name = "followee_id",nullable = false)
+    @JoinColumn(name = "followee_id", nullable = false)
     private User followee;
+
 }

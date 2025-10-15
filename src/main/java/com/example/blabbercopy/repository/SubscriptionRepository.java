@@ -4,15 +4,20 @@ import com.example.blabbercopy.entity.Subscription;
 import com.example.blabbercopy.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface SubscriptionRepository extends JpaRepository<Subscription, Integer> {
-   @Query("select s.follower from Subscription s where s.followee.id = :followeeId")
-    List<User> getFollowersByFolloweeId(Integer followeeId);
+public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-    boolean existsByFollowerIdAndFolloweeId(Integer followerId, Integer followeeId);
+    @Query("SELECT s.follower FROM Subscription s WHERE s.followee.id = :followeeId")
+    List<User> findFollowersByFolloweeId(@Param("followeeId") Long followeeId);
 
-    void deleteByFollowerIdAndFolloweeId(Integer followerId, Integer followeeId);
-    int deleteAllByFolloweeIdOrFollowerId(Integer followeeId, Integer followerId);
+    boolean existsByFollowerIdAndFolloweeId(Long followerId, Long followeeId);
+
+    void deleteByFollowerIdAndFolloweeId(Long followerId, Long followeeId);
+
+    int deleteAllByFolloweeIdOrFollowerId(Long followeeId, Long followerId);
+
 }
+

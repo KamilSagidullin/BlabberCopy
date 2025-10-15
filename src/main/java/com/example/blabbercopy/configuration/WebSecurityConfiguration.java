@@ -1,4 +1,4 @@
-package com.example.configuration;
+package com.example.blabbercopy.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

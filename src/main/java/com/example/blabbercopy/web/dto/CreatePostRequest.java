@@ -1,4 +1,4 @@
-package com.example.web.dto;
+package com.example.blabbercopy.web.dto;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

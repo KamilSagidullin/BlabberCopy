@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.blabbercopy.entity;
 
 public enum SubscriptionType {
     SUBSCRIBE,UNSUBSCRIBE,REMOVE

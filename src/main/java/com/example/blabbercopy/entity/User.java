@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.blabbercopy.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.util.Set;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String username;
@@ -25,7 +25,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER,targetClass = RoleType.class)
     @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role",nullable = false)
     @Enumerated(EnumType.STRING)

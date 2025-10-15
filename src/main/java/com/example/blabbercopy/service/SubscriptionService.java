@@ -20,45 +20,60 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class SubscriptionService {
-    private final SubscriptionRepository subscriptionRepository;
+
     private final UserService userService;
-    private final ApplicationEventPublisher applicationEventPublisher;
+
+    private final SubscriptionRepository subscriptionRepository;
+
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
-    @CacheEvict(value = "userSubscriptions",key = "#followeeId")
-    public void subscribe(int followeeId,int followerId){
-        User followee = userService.findById(followeeId);
+    @CacheEvict(value = "userSubscriptions", key = "#followeeId")
+    public void subscribe(Long followerId, Long followeeId) {
+        if (followerId == null || followeeId == null) {
+            throw new BlabberException("Invalid usernames provided");
+        }
+
         User follower = userService.findById(followerId);
+        User followee = userService.findById(followeeId);
 
-        if (followee == null || follower == null) throw new BlabberException("Invalid followee or follower");
-
-        if (!subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId,followeeId)) {
+        if (!subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId, followeeId)) {
             Subscription subscription = new Subscription();
-            subscription.setFollowee(followee);
             subscription.setFollower(follower);
-
+            subscription.setFollowee(followee);
             subscriptionRepository.save(subscription);
-            applicationEventPublisher.publishEvent(new SubscriptionChangeApplicationEvent(this,followeeId,followerId, SubscriptionType.SUBSCRIBE));
-
+            publisher.publishEvent(new SubscriptionChangeApplicationEvent(
+                    this,
+                    followeeId,
+                    followerId,
+                    SubscriptionType.SUBSCRIBE
+            ));
         }
     }
+
     @Transactional
-    @CacheEvict(value = "userSubscriptions",key = "#followeeId")
-    public void unsubscribe(int followeeId,int followerId){
-        User followee = userService.findById(followeeId);
-        User follower = userService.findById(followerId);
+    @CacheEvict(value = "userSubscriptions", key = "#followeeId")
+    public void unsubscribe(Long followerId, Long followeeId) {
+        if (followerId == null || followeeId == null) {
+            throw new BlabberException("Invalid usernames provided");
+        }
 
-        if (followee == null || follower == null) throw new BlabberException("Invalid followee or follower");
-        if (!subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId,followeeId)) throw new BlabberException("Subscription does not exists");
-
-        subscriptionRepository.deleteByFollowerIdAndFolloweeId(followerId,followeeId);
-        log.info("Deleted subscription ");
-
-        applicationEventPublisher.publishEvent(new SubscriptionChangeApplicationEvent(this,followeeId,followerId,SubscriptionType.UNSUBSCRIBE));
+        if (subscriptionRepository.existsByFollowerIdAndFolloweeId(followerId, followeeId)) {
+            log.info("Delete by follower {} and followee {}", followerId, followeeId);
+            subscriptionRepository.deleteByFollowerIdAndFolloweeId(followerId, followeeId);
+            publisher.publishEvent(new SubscriptionChangeApplicationEvent(
+                    this,
+                    followeeId,
+                    followerId,
+                    SubscriptionType.UNSUBSCRIBE
+            ));
+        }
     }
-    @Cacheable(value = "userSubscriptions",key = "#followeeId")
-    public List<User> getAllFollowers(int followeeId){
+
+    @Cacheable(value = "userSubscriptions", key = "#followeeId")
+    public List<User> getFollowers(Long followeeId) {
         log.info("Get followers by followee {}", followeeId);
-        return subscriptionRepository.getFollowersByFolloweeId(followeeId);
+        return subscriptionRepository.findFollowersByFolloweeId(followeeId);
     }
+
 }

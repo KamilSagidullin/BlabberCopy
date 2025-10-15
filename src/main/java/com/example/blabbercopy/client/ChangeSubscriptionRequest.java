@@ -1,6 +1,6 @@
-package com.example.client;
+package com.example.blabbercopy.client;
 
-import com.example.entity.SubscriptionType;
+import com.example.blabbercopy.entity.SubscriptionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChangeSubscriptionRequest {
-    private int followeeId;
-    private int followerId;
+
+    private Long followeeId;
+
+    private Long followerId;
+
     private SubscriptionType subscriptionType;
+
 }

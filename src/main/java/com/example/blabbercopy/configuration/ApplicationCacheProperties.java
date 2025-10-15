@@ -12,11 +12,15 @@ import java.util.Map;
 @Data
 @ConfigurationProperties(prefix = "app.cache")
 public class ApplicationCacheProperties {
+
     private final List<String> cacheNames = new ArrayList<>();
-    private final Map<String,CacheProperties> caches = new HashMap();
+
+    private final Map<String, CacheProperties> caches = new HashMap<>();
+
     @Data
-    public static class CacheProperties{
+    public static class CacheProperties {
         private Duration expiry = Duration.ZERO;
     }
 
 }
+

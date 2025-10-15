@@ -1,10 +1,9 @@
-package com.example.web.controller;
+package com.example.blabbercopy.web.controller;
 
 import com.example.blabbercopy.web.dto.CreateUserRequest;
-import com.example.blabbercopy.web.dto.UserDTO;
-import com.example.entity.RoleType;
-import com.example.entity.User;
-import com.example.service.UserService;
+import com.example.blabbercopy.web.dto.UserDto;
+import com.example.blabbercopy.entity.User;
+import com.example.blabbercopy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +18,22 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         User user = userService.findById(id);
-        return ResponseEntity.ok(new UserDTO(user.getId(), user.getUsername()));
+        return ResponseEntity.ok(new UserDto(user.getId(), user.getUsername()));
 
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest createUserRequest) {
-        User user = new User(createUserRequest.getUsername(), createUserRequest.getPassword(), RoleType.ROLE_USER);
+    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) {
+        User user = new User(createUserRequest.getUsername(), createUserRequest.getPassword(), createUserRequest.getRole());
         User createdUser = userService.create(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(createdUser.getId(), createdUser.getUsername()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new UserDto(createdUser.getId(), createdUser.getUsername()));
     }
 
     @DeleteMapping("/{userId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteUserById(@PathVariable int userId){
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long userId){
         userService.deleteById(userId);
         return ResponseEntity.noContent().build();
     }

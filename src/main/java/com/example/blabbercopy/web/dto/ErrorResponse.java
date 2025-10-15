@@ -1,4 +1,4 @@
-package com.example.web.dto;
+package com.example.blabbercopy.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

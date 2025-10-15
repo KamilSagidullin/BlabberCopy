@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.blabbercopy.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+
 @Entity
 @Getter
 @Setter
@@ -17,17 +18,20 @@ public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(max = 120,message = "Максимальный размер текста - 120 символов")
+
+    @Size(max = 120, message = "Максимальный размер текста - 120 символов")
     private String text;
-    @Pattern(regexp = "^#.*")
+
+    @Pattern(regexp = "^#.*", message = "Тэг должен начинаться с '#'")
     private String tag;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
     public Post(String text, String tag) {
         this.text = text;
         this.tag = tag;
     }
+
 }

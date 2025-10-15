@@ -4,9 +4,15 @@ import lombok.Data;
 
 @Data
 public class PostFilter {
+
     private String tag;
-    private int authorId;
+
+    private Long authorId;
+
     private String text;
-    private int pageSize = 10;
-    private int pageNumber = 0;
+
+    private Integer pageSize = 10;
+
+    private Integer pageNumber = 0;
+
 }

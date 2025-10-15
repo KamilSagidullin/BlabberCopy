@@ -1,5 +1,4 @@
 package com.example.blabbercopy.repository.specification;
-
 import com.example.blabbercopy.entity.Post;
 import jakarta.persistence.criteria.Path;
 import org.springframework.data.jpa.domain.Specification;
@@ -7,9 +6,9 @@ import org.springframework.data.jpa.domain.Specification;
 public interface PostSpecification {
 
     static Specification<Post> withFilter(PostFilter filer) {
-        return isEquals(filer.getAuthorId(), "author", "id")
+        return Specification.where(isEquals(filer.getAuthorId(), "author", "id")
                 .and(contains("tag", filer.getTag()))
-                .and(contains("text", filer.getText()));
+                .and(contains("text", filer.getText())));
     }
 
     private static <T> Specification<Post> isEquals(T object, String... fieldPath) {
